@@ -18,6 +18,10 @@ func InsertScreen(w http.ResponseWriter, r *http.Request){
 	temp.ExecuteTemplate(w, "New", nil)
 }
 
+func EditScreen(w http.ResponseWriter, r *http.Request){
+	temp.ExecuteTemplate(w, "Edit", nil)
+}
+
 func Insert(w http.ResponseWriter, r *http.Request){
 	if r.Method == "POST"{
 		nome := r.FormValue("nome")

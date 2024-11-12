@@ -41,3 +41,17 @@ func GetAllProdutos()[]Produto{
 	defer banco.Close()
 	return produtos
 }
+
+func CadastraProduto(nome string, descricao string, preco float64, quantidade int){
+	banco := db.ConectaBanco()
+
+	insert, err := banco.Prepare("INSERT INTO tab_produtos(nome, descricao, preco, quantidade) VALUES($1, $2, $3, $4)")
+
+	if err != nil{
+		panic(err.Error())
+	}
+
+	insert.Exec(nome, descricao, preco, quantidade)
+
+	defer banco.Close()
+}

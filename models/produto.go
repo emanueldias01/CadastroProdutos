@@ -100,3 +100,17 @@ func BuscaProdutoPeloId(id string)Produto{
 	return p
 
 }
+
+func Edit(id int,nome string, descricao string, preco float64, quantidade int){
+	banco := db.ConectaBanco()
+
+	update, err := banco.Prepare("UPDATE tab_produtos SET nome=$1, descricao=$2, preco=$3, quantidade=$4 WHERE id=$5")
+
+	if err != nil{
+		panic(err.Error())
+	}
+
+	update.Exec(nome, descricao, preco, quantidade, id)
+
+	defer banco.Close()
+}

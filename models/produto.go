@@ -69,3 +69,34 @@ func DeletaProduto(id string){
 
 	defer banco.Close()
 }
+
+func BuscaProdutoPeloId(id string)Produto{
+	banco := db.ConectaBanco()
+
+	findId, err := banco.Query("SELECT * FROM tab_produtos WHERE id=$1", id)
+
+	if err != nil{
+		panic(err.Error())
+	}
+
+	p := Produto{}
+
+	for findId.Next(){
+		var id, quantidade int
+		var nome, descricao string
+		var preco float64
+
+		findId.Scan(&id, &nome, &descricao, &preco, &quantidade)
+
+		p.Id = id
+		p.Nome = nome
+		p.Descricao = descricao
+		p.Preco = preco
+		p.Quantidade = quantidade
+	}
+
+	defer banco.Close()
+
+	return p
+
+}

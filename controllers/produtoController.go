@@ -19,7 +19,10 @@ func InsertScreen(w http.ResponseWriter, r *http.Request){
 }
 
 func EditScreen(w http.ResponseWriter, r *http.Request){
-	temp.ExecuteTemplate(w, "Edit", nil)
+
+	id := r.URL.Query().Get("id")
+
+	temp.ExecuteTemplate(w, "Edit", models.BuscaProdutoPeloId(id))
 }
 
 func Insert(w http.ResponseWriter, r *http.Request){

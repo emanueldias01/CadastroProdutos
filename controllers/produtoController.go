@@ -39,10 +39,14 @@ func Insert(w http.ResponseWriter, r *http.Request){
 
 		models.CadastraProduto(nome, descricao, precoFloat, quantidadeInt)
 	}
+
+	http.Redirect(w,r,"/", 302)
 }
 
 func Delete(w http.ResponseWriter, r *http.Request){
 	id := r.URL.Query().Get("id")
 
 	models.DeletaProduto(id)
+
+	http.Redirect(w, r, "/", 302)
 }

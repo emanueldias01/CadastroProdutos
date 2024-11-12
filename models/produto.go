@@ -55,3 +55,17 @@ func CadastraProduto(nome string, descricao string, preco float64, quantidade in
 
 	defer banco.Close()
 }
+
+func DeletaProduto(id string){
+	banco := db.ConectaBanco()
+
+	deleta, err := banco.Prepare("DELETE FROM tab_produtos WHERE id=$1")
+
+	if err != nil{
+		panic(err.Error())
+	}
+
+	deleta.Exec(id)
+
+	defer banco.Close()
+}

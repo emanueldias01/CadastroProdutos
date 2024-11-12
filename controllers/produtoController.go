@@ -59,30 +59,36 @@ func Delete(w http.ResponseWriter, r *http.Request){
 }
 
 func Update(w http.ResponseWriter, r *http.Request){
-	id := r.URL.Query().Get("id")
-	nome := r.URL.Query().Get("nome")
-	descricao := r.URL.Query().Get("descricao")
-	preco := r.URL.Query().Get("preco")
-	quantidade := r.URL.Query().Get("quantidade")
+
+	if r.Method =="POST"{
+		id := r.FormValue("id")
+        nome := r.FormValue("nome")
+        descricao := r.FormValue("descricao")
+        preco := r.FormValue("preco")
+        quantidade := r.FormValue("quantidade")
 
 
-	idInt, err := strconv.Atoi(id)
+		idInt, err := strconv.Atoi(id)
 
-	if err != nil{
-		log.Println("erro na conversao de id")
+		if err != nil{
+			log.Println("erro na conversao de id")
+		}
+
+		precoFloat, err := strconv.ParseFloat(preco, 64)
+
+		if err !=nil{
+			log.Println("erro na conversao de preco")
+		}
+
+		quantidadeInt, err := strconv.Atoi(quantidade)
+
+		if err != nil{
+			log.Println("erro na conversao de quantidade")
+		}
+
+		models.Edit(idInt, nome, descricao, precoFloat, quantidadeInt)
+
+		http.Redirect(w, r, "/", 302)
+
 	}
-
-	precoFloat, err := strconv.ParseFloat(preco, 64)
-
-	if err !=nil{
-		log.Println("erro na conversao de preco")
-	}
-
-	quantidadeInt, err := strconv.Atoi(quantidade)
-
-	if err != nil{
-		log.Println("erro na conversao de quantidade")
-	}
-
-	models.Edit(idInt, nome, descricao, precoFloat, quantidadeInt)
 }

@@ -14,6 +14,10 @@ func Index(w http.ResponseWriter, r *http.Request){
 	temp.ExecuteTemplate(w, "Index", models.GetAllProdutos())
 }
 
+func InsertScreen(w http.ResponseWriter, r *http.Request){
+	temp.ExecuteTemplate(w, "New", nil)
+}
+
 func Insert(w http.ResponseWriter, r *http.Request){
 	if r.Method == "POST"{
 		nome := r.FormValue("nome")
